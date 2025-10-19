@@ -1,0 +1,1876 @@
+{
+  "domain": "gc_analytics",
+  "description": "GC Analytics T1 (Incremental) Migration Configuration - Generated from GC Tables Excel",
+  "tables": {
+    "fd_chart_ciq": {
+      "cursor_column": null,
+      "source_system": "map",
+      "dbt_render_config_modules": [
+        "org_exclusion_clause"
+      ],
+      "downstream_dags": null,
+      "filters": {},
+      "final_layer_tgt_schema_name": "core",
+      "final_layer_tgt_table_name": "fd_chart_ciq",
+      "final_tables_schema": "core",
+      "incremental_sort_column": "created",
+      "key_check_column": "",
+      "merge_key": "id",
+      "org_inclusion_exclusion_field": "org_id",
+      "sorting_order": null,
+      "source_table_name": "fd_chart_ciq",
+      "table_name": "fd_chart_ciq",
+      "target_table_name": "fd_chart_ciq",
+      "is_this_incremental_table": true,
+      "is_this_one_time_migration_table": false,
+      "is_this_table_contain_org_id": true,
+      "depends_on": [],
+      "write_disposition": "append",
+      "table_metadata": {
+        "category": "user_config_small",
+        "estimated_size_mb": 50,
+        "supports_deletes": false,
+        "org_specific": true,
+        "auto_discover_schema": true,
+        "comment": "Fd Chart Ciq - T1 incremental migration"
+      },
+      "migration_config": {
+        "t0_strategy": "presto_direct",
+        "t1_strategy": "presto_incremental",
+        "load_strategy": "upsert",
+        "batch_size": 10000,
+        "staging_table": "staging.fd_chart_ciq",
+        "target_table": "core.fd_chart_ciq",
+        "incremental_timestamp_check": true,
+        "last_loaded_query": "SELECT COALESCE(MAX(created), '1900-01-01'::timestamp) as last_loaded FROM core.fd_chart_ciq"
+      },
+      "extraction_config": {
+        "t0_config": {
+          "source_type": "presto_sql",
+          "source_query": "SELECT * FROM map_cassandra.map_stage.fd_chart_ciq WHERE org_id NOT IN ('470053', '12896222')",
+          "chunking_strategy": "org_based",
+          "chunk_size": 10000,
+          "org_filter_enabled": true,
+          "org_column": "org_id"
+        },
+        "t1_config": {
+          "source_type": "presto_sql",
+          "source_query": "SELECT * FROM map_cassandra.map_stage.fd_chart_ciq WHERE org_id = '{org_id}' AND org_id NOT IN ('470053', '12896222') AND CAST(created AS timestamp) >= CAST('{last_loaded_timestamp}' AS timestamp)",
+          "incremental_column": "created",
+          "chunking_strategy": "org_based",
+          "chunk_size": 10000,
+          "requires_last_loaded_check": true
+        }
+      },
+      "validation_config": {
+        "row_count_validation": {
+          "enabled": true,
+          "tolerance_percentage": 0.5
+        },
+        "schema_validation": {
+          "enabled": true,
+          "auto_discover": true
+        },
+        "data_freshness_validation": {
+          "enabled": true,
+          "freshness_column": "created"
+        }
+      },
+      "dbt_variables": {
+        "cassandra_schema": "map_cassandra.map_stage",
+        "cassandra_table": "fd_chart_ciq",
+        "final_layer_tgt_schema_name": "core",
+        "alloydb_schema": "core",
+        "alloydb_table": "fd_chart_ciq",
+        "excluded_spids": [
+          "470053",
+          "12896222"
+        ],
+        "exclusion_field": "org_id",
+        "merge_key": "id",
+        "incremental_field": "created",
+        "type_of_extraction": "incremental",
+        "spid_resolution_required": false,
+        "spid_join_type": null,
+        "spid_lookup_table": null
+      },
+      "spid_resolution": {
+        "has_direct_org_field": true,
+        "direct_org_field": "org_id",
+        "requires_join_for_spid": false,
+        "merge_key_for_join": "id",
+        "join_strategy": null
+      },
+      "dbt_model_config": {
+        "model_name": "fd_chart_ciq.sql",
+        "gcs_path": "gs://clx-dev-migration-zone-c395-composer3-migration-usc1-dags/dags/mdi_core_dbt/models/core/{table_name}.sql",
+        "local_sync_path": "dbt_models/core/fd_chart_ciq.sql",
+        "depends_on_models": [
+          "mz.fd_chart_ciq"
+        ],
+        "materializes_to": "core.fd_chart_ciq",
+        "sync_required": true
+      }
+    },
+    "device_shared_networks": {
+      "cursor_column": null,
+      "source_system": "map",
+      "dbt_render_config_modules": [
+        "org_exclusion_clause"
+      ],
+      "downstream_dags": null,
+      "filters": {},
+      "final_layer_tgt_schema_name": "core",
+      "final_layer_tgt_table_name": "device_shared_networks",
+      "final_tables_schema": "core",
+      "incremental_sort_column": "created",
+      "key_check_column": "",
+      "merge_key": "id",
+      "org_inclusion_exclusion_field": "org_id",
+      "sorting_order": null,
+      "source_table_name": "device_shared_networks",
+      "table_name": "device_shared_networks",
+      "target_table_name": "device_shared_networks",
+      "is_this_incremental_table": true,
+      "is_this_one_time_migration_table": false,
+      "is_this_table_contain_org_id": true,
+      "depends_on": [],
+      "write_disposition": "append",
+      "table_metadata": {
+        "category": "user_config_small",
+        "estimated_size_mb": 50,
+        "supports_deletes": false,
+        "org_specific": true,
+        "auto_discover_schema": true,
+        "comment": "Device Shared Networks - T1 incremental migration"
+      },
+      "migration_config": {
+        "t0_strategy": "presto_direct",
+        "t1_strategy": "presto_incremental",
+        "load_strategy": "upsert",
+        "batch_size": 10000,
+        "staging_table": "staging.device_shared_networks",
+        "target_table": "core.device_shared_networks",
+        "incremental_timestamp_check": true,
+        "last_loaded_query": "SELECT COALESCE(MAX(created), '1900-01-01'::timestamp) as last_loaded FROM core.device_shared_networks"
+      },
+      "extraction_config": {
+        "t0_config": {
+          "source_type": "presto_sql",
+          "source_query": "SELECT * FROM map_cassandra.map_stage.device_shared_networks WHERE org_id NOT IN ('470053', '12896222')",
+          "chunking_strategy": "org_based",
+          "chunk_size": 10000,
+          "org_filter_enabled": true,
+          "org_column": "org_id"
+        },
+        "t1_config": {
+          "source_type": "presto_sql",
+          "source_query": "SELECT * FROM map_cassandra.map_stage.device_shared_networks WHERE org_id = '{org_id}' AND org_id NOT IN ('470053', '12896222') AND CAST(created AS timestamp) >= CAST('{last_loaded_timestamp}' AS timestamp)",
+          "incremental_column": "created",
+          "chunking_strategy": "org_based",
+          "chunk_size": 10000,
+          "requires_last_loaded_check": true
+        }
+      },
+      "validation_config": {
+        "row_count_validation": {
+          "enabled": true,
+          "tolerance_percentage": 0.5
+        },
+        "schema_validation": {
+          "enabled": true,
+          "auto_discover": true
+        },
+        "data_freshness_validation": {
+          "enabled": true,
+          "freshness_column": "created"
+        }
+      },
+      "dbt_variables": {
+        "cassandra_schema": "map_cassandra.map_stage",
+        "cassandra_table": "device_shared_networks",
+        "final_layer_tgt_schema_name": "core",
+        "alloydb_schema": "core",
+        "alloydb_table": "device_shared_networks",
+        "excluded_spids": [
+          "470053",
+          "12896222"
+        ],
+        "exclusion_field": "org_id",
+        "merge_key": "id",
+        "incremental_field": "created",
+        "type_of_extraction": "incremental",
+        "spid_resolution_required": false,
+        "spid_join_type": null,
+        "spid_lookup_table": null
+      },
+      "spid_resolution": {
+        "has_direct_org_field": true,
+        "direct_org_field": "org_id",
+        "requires_join_for_spid": false,
+        "merge_key_for_join": "id",
+        "join_strategy": null
+      },
+      "dbt_model_config": {
+        "model_name": "device_shared_networks.sql",
+        "gcs_path": "gs://clx-dev-migration-zone-c395-composer3-migration-usc1-dags/dags/mdi_core_dbt/models/core/{table_name}.sql",
+        "local_sync_path": "dbt_models/core/device_shared_networks.sql",
+        "depends_on_models": [
+          "mz.device_shared_networks"
+        ],
+        "materializes_to": "core.device_shared_networks",
+        "sync_required": true
+      }
+    },
+    "mobile_token": {
+      "cursor_column": null,
+      "source_system": "map",
+      "dbt_render_config_modules": [
+        "org_exclusion_clause"
+      ],
+      "downstream_dags": null,
+      "filters": {},
+      "final_layer_tgt_schema_name": "core",
+      "final_layer_tgt_table_name": "mobile_token",
+      "final_tables_schema": "core",
+      "incremental_sort_column": "created",
+      "key_check_column": "",
+      "merge_key": "id",
+      "org_inclusion_exclusion_field": "org_id",
+      "sorting_order": null,
+      "source_table_name": "mobile_token",
+      "table_name": "mobile_token",
+      "target_table_name": "mobile_token",
+      "is_this_incremental_table": true,
+      "is_this_one_time_migration_table": false,
+      "is_this_table_contain_org_id": true,
+      "depends_on": [],
+      "write_disposition": "append",
+      "table_metadata": {
+        "category": "user_config_small",
+        "estimated_size_mb": 50,
+        "supports_deletes": false,
+        "org_specific": true,
+        "auto_discover_schema": true,
+        "comment": "Mobile Token - T1 incremental migration"
+      },
+      "migration_config": {
+        "t0_strategy": "presto_direct",
+        "t1_strategy": "presto_incremental",
+        "load_strategy": "upsert",
+        "batch_size": 10000,
+        "staging_table": "staging.mobile_token",
+        "target_table": "core.mobile_token",
+        "incremental_timestamp_check": true,
+        "last_loaded_query": "SELECT COALESCE(MAX(created), '1900-01-01'::timestamp) as last_loaded FROM core.mobile_token"
+      },
+      "extraction_config": {
+        "t0_config": {
+          "source_type": "presto_sql",
+          "source_query": "SELECT * FROM map_cassandra.map_stage.mobile_token WHERE org_id NOT IN ('470053', '12896222')",
+          "chunking_strategy": "org_based",
+          "chunk_size": 10000,
+          "org_filter_enabled": true,
+          "org_column": "org_id"
+        },
+        "t1_config": {
+          "source_type": "presto_sql",
+          "source_query": "SELECT * FROM map_cassandra.map_stage.mobile_token WHERE org_id = '{org_id}' AND org_id NOT IN ('470053', '12896222') AND CAST(created AS timestamp) >= CAST('{last_loaded_timestamp}' AS timestamp)",
+          "incremental_column": "created",
+          "chunking_strategy": "org_based",
+          "chunk_size": 10000,
+          "requires_last_loaded_check": true
+        }
+      },
+      "validation_config": {
+        "row_count_validation": {
+          "enabled": true,
+          "tolerance_percentage": 0.5
+        },
+        "schema_validation": {
+          "enabled": true,
+          "auto_discover": true
+        },
+        "data_freshness_validation": {
+          "enabled": true,
+          "freshness_column": "created"
+        }
+      },
+      "dbt_variables": {
+        "cassandra_schema": "map_cassandra.map_stage",
+        "cassandra_table": "mobile_token",
+        "final_layer_tgt_schema_name": "core",
+        "alloydb_schema": "core",
+        "alloydb_table": "mobile_token",
+        "excluded_spids": [
+          "470053",
+          "12896222"
+        ],
+        "exclusion_field": "org_id",
+        "merge_key": "id",
+        "incremental_field": "created",
+        "type_of_extraction": "incremental",
+        "spid_resolution_required": false,
+        "spid_join_type": null,
+        "spid_lookup_table": null
+      },
+      "spid_resolution": {
+        "has_direct_org_field": true,
+        "direct_org_field": "org_id",
+        "requires_join_for_spid": false,
+        "merge_key_for_join": "id",
+        "join_strategy": null
+      },
+      "dbt_model_config": {
+        "model_name": "mobile_token.sql",
+        "gcs_path": "gs://clx-dev-migration-zone-c395-composer3-migration-usc1-dags/dags/mdi_core_dbt/models/core/{table_name}.sql",
+        "local_sync_path": "dbt_models/core/mobile_token.sql",
+        "depends_on_models": [
+          "mz.mobile_token"
+        ],
+        "materializes_to": "core.mobile_token",
+        "sync_required": true
+      }
+    },
+    "sso_user": {
+      "cursor_column": null,
+      "source_system": "map",
+      "dbt_render_config_modules": [
+        "org_exclusion_clause"
+      ],
+      "downstream_dags": null,
+      "filters": {},
+      "final_layer_tgt_schema_name": "core",
+      "final_layer_tgt_table_name": "sso_user",
+      "final_tables_schema": "core",
+      "incremental_sort_column": "created",
+      "key_check_column": "",
+      "merge_key": "id",
+      "org_inclusion_exclusion_field": "org_id",
+      "sorting_order": null,
+      "source_table_name": "sso_user",
+      "table_name": "sso_user",
+      "target_table_name": "sso_user",
+      "is_this_incremental_table": true,
+      "is_this_one_time_migration_table": false,
+      "is_this_table_contain_org_id": true,
+      "depends_on": [],
+      "write_disposition": "append",
+      "table_metadata": {
+        "category": "user_config_small",
+        "estimated_size_mb": 50,
+        "supports_deletes": false,
+        "org_specific": true,
+        "auto_discover_schema": true,
+        "comment": "Sso User - T1 incremental migration"
+      },
+      "migration_config": {
+        "t0_strategy": "presto_direct",
+        "t1_strategy": "presto_incremental",
+        "load_strategy": "upsert",
+        "batch_size": 10000,
+        "staging_table": "staging.sso_user",
+        "target_table": "core.sso_user",
+        "incremental_timestamp_check": true,
+        "last_loaded_query": "SELECT COALESCE(MAX(created), '1900-01-01'::timestamp) as last_loaded FROM core.sso_user"
+      },
+      "extraction_config": {
+        "t0_config": {
+          "source_type": "presto_sql",
+          "source_query": "SELECT * FROM map_cassandra.map_stage.sso_user WHERE org_id NOT IN ('470053', '12896222')",
+          "chunking_strategy": "org_based",
+          "chunk_size": 10000,
+          "org_filter_enabled": true,
+          "org_column": "org_id"
+        },
+        "t1_config": {
+          "source_type": "presto_sql",
+          "source_query": "SELECT * FROM map_cassandra.map_stage.sso_user WHERE org_id = '{org_id}' AND org_id NOT IN ('470053', '12896222') AND CAST(created AS timestamp) >= CAST('{last_loaded_timestamp}' AS timestamp)",
+          "incremental_column": "created",
+          "chunking_strategy": "org_based",
+          "chunk_size": 10000,
+          "requires_last_loaded_check": true
+        }
+      },
+      "validation_config": {
+        "row_count_validation": {
+          "enabled": true,
+          "tolerance_percentage": 0.5
+        },
+        "schema_validation": {
+          "enabled": true,
+          "auto_discover": true
+        },
+        "data_freshness_validation": {
+          "enabled": true,
+          "freshness_column": "created"
+        }
+      },
+      "dbt_variables": {
+        "cassandra_schema": "map_cassandra.map_stage",
+        "cassandra_table": "sso_user",
+        "final_layer_tgt_schema_name": "core",
+        "alloydb_schema": "core",
+        "alloydb_table": "sso_user",
+        "excluded_spids": [
+          "470053",
+          "12896222"
+        ],
+        "exclusion_field": "org_id",
+        "merge_key": "id",
+        "incremental_field": "created",
+        "type_of_extraction": "incremental",
+        "spid_resolution_required": false,
+        "spid_join_type": null,
+        "spid_lookup_table": null
+      },
+      "spid_resolution": {
+        "has_direct_org_field": true,
+        "direct_org_field": "org_id",
+        "requires_join_for_spid": false,
+        "merge_key_for_join": "id",
+        "join_strategy": null
+      },
+      "dbt_model_config": {
+        "model_name": "sso_user.sql",
+        "gcs_path": "gs://clx-dev-migration-zone-c395-composer3-migration-usc1-dags/dags/mdi_core_dbt/models/core/{table_name}.sql",
+        "local_sync_path": "dbt_models/core/sso_user.sql",
+        "depends_on_models": [
+          "mz.sso_user"
+        ],
+        "materializes_to": "core.sso_user",
+        "sync_required": true
+      }
+    },
+    "fp_cache": {
+      "cursor_column": null,
+      "source_system": "map",
+      "dbt_render_config_modules": [
+        "org_exclusion_clause"
+      ],
+      "downstream_dags": null,
+      "filters": {},
+      "final_layer_tgt_schema_name": "core",
+      "final_layer_tgt_table_name": "fp_cache",
+      "final_tables_schema": "core",
+      "incremental_sort_column": "created",
+      "key_check_column": "",
+      "merge_key": "id",
+      "org_inclusion_exclusion_field": "org_id",
+      "sorting_order": null,
+      "source_table_name": "fp_cache",
+      "table_name": "fp_cache",
+      "target_table_name": "fp_cache",
+      "is_this_incremental_table": true,
+      "is_this_one_time_migration_table": false,
+      "is_this_table_contain_org_id": true,
+      "depends_on": [],
+      "write_disposition": "append",
+      "table_metadata": {
+        "category": "user_config_small",
+        "estimated_size_mb": 50,
+        "supports_deletes": false,
+        "org_specific": true,
+        "auto_discover_schema": true,
+        "comment": "Fp Cache - T1 incremental migration"
+      },
+      "migration_config": {
+        "t0_strategy": "presto_direct",
+        "t1_strategy": "presto_incremental",
+        "load_strategy": "upsert",
+        "batch_size": 10000,
+        "staging_table": "staging.fp_cache",
+        "target_table": "core.fp_cache",
+        "incremental_timestamp_check": true,
+        "last_loaded_query": "SELECT COALESCE(MAX(created), '1900-01-01'::timestamp) as last_loaded FROM core.fp_cache"
+      },
+      "extraction_config": {
+        "t0_config": {
+          "source_type": "presto_sql",
+          "source_query": "SELECT * FROM map_cassandra.map_stage.fp_cache WHERE org_id NOT IN ('470053', '12896222')",
+          "chunking_strategy": "org_based",
+          "chunk_size": 10000,
+          "org_filter_enabled": true,
+          "org_column": "org_id"
+        },
+        "t1_config": {
+          "source_type": "presto_sql",
+          "source_query": "SELECT * FROM map_cassandra.map_stage.fp_cache WHERE org_id = '{org_id}' AND org_id NOT IN ('470053', '12896222') AND CAST(created AS timestamp) >= CAST('{last_loaded_timestamp}' AS timestamp)",
+          "incremental_column": "created",
+          "chunking_strategy": "org_based",
+          "chunk_size": 10000,
+          "requires_last_loaded_check": true
+        }
+      },
+      "validation_config": {
+        "row_count_validation": {
+          "enabled": true,
+          "tolerance_percentage": 0.5
+        },
+        "schema_validation": {
+          "enabled": true,
+          "auto_discover": true
+        },
+        "data_freshness_validation": {
+          "enabled": true,
+          "freshness_column": "created"
+        }
+      },
+      "dbt_variables": {
+        "cassandra_schema": "map_cassandra.map_stage",
+        "cassandra_table": "fp_cache",
+        "final_layer_tgt_schema_name": "core",
+        "alloydb_schema": "core",
+        "alloydb_table": "fp_cache",
+        "excluded_spids": [
+          "470053",
+          "12896222"
+        ],
+        "exclusion_field": "org_id",
+        "merge_key": "id",
+        "incremental_field": "created",
+        "type_of_extraction": "incremental",
+        "spid_resolution_required": false,
+        "spid_join_type": null,
+        "spid_lookup_table": null
+      },
+      "spid_resolution": {
+        "has_direct_org_field": true,
+        "direct_org_field": "org_id",
+        "requires_join_for_spid": false,
+        "merge_key_for_join": "id",
+        "join_strategy": null
+      },
+      "dbt_model_config": {
+        "model_name": "fp_cache.sql",
+        "gcs_path": "gs://clx-dev-migration-zone-c395-composer3-migration-usc1-dags/dags/mdi_core_dbt/models/core/{table_name}.sql",
+        "local_sync_path": "dbt_models/core/fp_cache.sql",
+        "depends_on_models": [
+          "mz.fp_cache"
+        ],
+        "materializes_to": "core.fp_cache",
+        "sync_required": true
+      }
+    },
+    "mobile_device": {
+      "cursor_column": null,
+      "source_system": "map",
+      "dbt_render_config_modules": [
+        "org_exclusion_clause"
+      ],
+      "downstream_dags": null,
+      "filters": {},
+      "final_layer_tgt_schema_name": "core",
+      "final_layer_tgt_table_name": "mobile_device",
+      "final_tables_schema": "core",
+      "incremental_sort_column": "created",
+      "key_check_column": "",
+      "merge_key": "id",
+      "org_inclusion_exclusion_field": "org_id",
+      "sorting_order": null,
+      "source_table_name": "mobile_device",
+      "table_name": "mobile_device",
+      "target_table_name": "mobile_device",
+      "is_this_incremental_table": true,
+      "is_this_one_time_migration_table": false,
+      "is_this_table_contain_org_id": true,
+      "depends_on": [],
+      "write_disposition": "append",
+      "table_metadata": {
+        "category": "user_config_small",
+        "estimated_size_mb": 50,
+        "supports_deletes": false,
+        "org_specific": true,
+        "auto_discover_schema": true,
+        "comment": "Mobile Device - T1 incremental migration"
+      },
+      "migration_config": {
+        "t0_strategy": "presto_direct",
+        "t1_strategy": "presto_incremental",
+        "load_strategy": "upsert",
+        "batch_size": 10000,
+        "staging_table": "staging.mobile_device",
+        "target_table": "core.mobile_device",
+        "incremental_timestamp_check": true,
+        "last_loaded_query": "SELECT COALESCE(MAX(created), '1900-01-01'::timestamp) as last_loaded FROM core.mobile_device"
+      },
+      "extraction_config": {
+        "t0_config": {
+          "source_type": "presto_sql",
+          "source_query": "SELECT * FROM map_cassandra.map_stage.mobile_device WHERE org_id NOT IN ('470053', '12896222')",
+          "chunking_strategy": "org_based",
+          "chunk_size": 10000,
+          "org_filter_enabled": true,
+          "org_column": "org_id"
+        },
+        "t1_config": {
+          "source_type": "presto_sql",
+          "source_query": "SELECT * FROM map_cassandra.map_stage.mobile_device WHERE org_id = '{org_id}' AND org_id NOT IN ('470053', '12896222') AND CAST(created AS timestamp) >= CAST('{last_loaded_timestamp}' AS timestamp)",
+          "incremental_column": "created",
+          "chunking_strategy": "org_based",
+          "chunk_size": 10000,
+          "requires_last_loaded_check": true
+        }
+      },
+      "validation_config": {
+        "row_count_validation": {
+          "enabled": true,
+          "tolerance_percentage": 0.5
+        },
+        "schema_validation": {
+          "enabled": true,
+          "auto_discover": true
+        },
+        "data_freshness_validation": {
+          "enabled": true,
+          "freshness_column": "created"
+        }
+      },
+      "dbt_variables": {
+        "cassandra_schema": "map_cassandra.map_stage",
+        "cassandra_table": "mobile_device",
+        "final_layer_tgt_schema_name": "core",
+        "alloydb_schema": "core",
+        "alloydb_table": "mobile_device",
+        "excluded_spids": [
+          "470053",
+          "12896222"
+        ],
+        "exclusion_field": "org_id",
+        "merge_key": "id",
+        "incremental_field": "created",
+        "type_of_extraction": "incremental",
+        "spid_resolution_required": false,
+        "spid_join_type": null,
+        "spid_lookup_table": null
+      },
+      "spid_resolution": {
+        "has_direct_org_field": true,
+        "direct_org_field": "org_id",
+        "requires_join_for_spid": false,
+        "merge_key_for_join": "id",
+        "join_strategy": null
+      },
+      "dbt_model_config": {
+        "model_name": "mobile_device.sql",
+        "gcs_path": "gs://clx-dev-migration-zone-c395-composer3-migration-usc1-dags/dags/mdi_core_dbt/models/core/{table_name}.sql",
+        "local_sync_path": "dbt_models/core/mobile_device.sql",
+        "depends_on_models": [
+          "mz.mobile_device"
+        ],
+        "materializes_to": "core.mobile_device",
+        "sync_required": true
+      }
+    },
+    "mdi_user": {
+      "cursor_column": null,
+      "source_system": "map",
+      "dbt_render_config_modules": [
+        "org_exclusion_clause"
+      ],
+      "downstream_dags": null,
+      "filters": {},
+      "final_layer_tgt_schema_name": "core",
+      "final_layer_tgt_table_name": "mdi_user",
+      "final_tables_schema": "core",
+      "incremental_sort_column": "created",
+      "key_check_column": "",
+      "merge_key": "id",
+      "org_inclusion_exclusion_field": "org_id",
+      "sorting_order": null,
+      "source_table_name": "mdi_user",
+      "table_name": "mdi_user",
+      "target_table_name": "mdi_user",
+      "is_this_incremental_table": true,
+      "is_this_one_time_migration_table": false,
+      "is_this_table_contain_org_id": true,
+      "depends_on": [],
+      "write_disposition": "append",
+      "table_metadata": {
+        "category": "user_config_small",
+        "estimated_size_mb": 50,
+        "supports_deletes": false,
+        "org_specific": true,
+        "auto_discover_schema": true,
+        "comment": "Mdi User - T1 incremental migration"
+      },
+      "migration_config": {
+        "t0_strategy": "presto_direct",
+        "t1_strategy": "presto_incremental",
+        "load_strategy": "upsert",
+        "batch_size": 10000,
+        "staging_table": "staging.mdi_user",
+        "target_table": "core.mdi_user",
+        "incremental_timestamp_check": true,
+        "last_loaded_query": "SELECT COALESCE(MAX(created), '1900-01-01'::timestamp) as last_loaded FROM core.mdi_user"
+      },
+      "extraction_config": {
+        "t0_config": {
+          "source_type": "presto_sql",
+          "source_query": "SELECT * FROM map_cassandra.map_stage.mdi_user WHERE org_id NOT IN ('470053', '12896222')",
+          "chunking_strategy": "org_based",
+          "chunk_size": 10000,
+          "org_filter_enabled": true,
+          "org_column": "org_id"
+        },
+        "t1_config": {
+          "source_type": "presto_sql",
+          "source_query": "SELECT * FROM map_cassandra.map_stage.mdi_user WHERE org_id = '{org_id}' AND org_id NOT IN ('470053', '12896222') AND CAST(created AS timestamp) >= CAST('{last_loaded_timestamp}' AS timestamp)",
+          "incremental_column": "created",
+          "chunking_strategy": "org_based",
+          "chunk_size": 10000,
+          "requires_last_loaded_check": true
+        }
+      },
+      "validation_config": {
+        "row_count_validation": {
+          "enabled": true,
+          "tolerance_percentage": 0.5
+        },
+        "schema_validation": {
+          "enabled": true,
+          "auto_discover": true
+        },
+        "data_freshness_validation": {
+          "enabled": true,
+          "freshness_column": "created"
+        }
+      },
+      "dbt_variables": {
+        "cassandra_schema": "map_cassandra.map_stage",
+        "cassandra_table": "mdi_user",
+        "final_layer_tgt_schema_name": "core",
+        "alloydb_schema": "core",
+        "alloydb_table": "mdi_user",
+        "excluded_spids": [
+          "470053",
+          "12896222"
+        ],
+        "exclusion_field": "org_id",
+        "merge_key": "id",
+        "incremental_field": "created",
+        "type_of_extraction": "incremental",
+        "spid_resolution_required": false,
+        "spid_join_type": null,
+        "spid_lookup_table": null
+      },
+      "spid_resolution": {
+        "has_direct_org_field": true,
+        "direct_org_field": "org_id",
+        "requires_join_for_spid": false,
+        "merge_key_for_join": "id",
+        "join_strategy": null
+      },
+      "dbt_model_config": {
+        "model_name": "mdi_user.sql",
+        "gcs_path": "gs://clx-dev-migration-zone-c395-composer3-migration-usc1-dags/dags/mdi_core_dbt/models/core/{table_name}.sql",
+        "local_sync_path": "dbt_models/core/mdi_user.sql",
+        "depends_on_models": [
+          "mz.mdi_user"
+        ],
+        "materializes_to": "core.mdi_user",
+        "sync_required": true
+      }
+    },
+    "persona": {
+      "cursor_column": null,
+      "source_system": "map",
+      "dbt_render_config_modules": [
+        "org_exclusion_clause"
+      ],
+      "downstream_dags": null,
+      "filters": {},
+      "final_layer_tgt_schema_name": "core",
+      "final_layer_tgt_table_name": "persona",
+      "final_tables_schema": "core",
+      "incremental_sort_column": "created",
+      "key_check_column": "",
+      "merge_key": "id",
+      "org_inclusion_exclusion_field": "org_id",
+      "sorting_order": null,
+      "source_table_name": "persona",
+      "table_name": "persona",
+      "target_table_name": "persona",
+      "is_this_incremental_table": true,
+      "is_this_one_time_migration_table": false,
+      "is_this_table_contain_org_id": true,
+      "depends_on": [],
+      "write_disposition": "append",
+      "table_metadata": {
+        "category": "user_config_small",
+        "estimated_size_mb": 50,
+        "supports_deletes": false,
+        "org_specific": true,
+        "auto_discover_schema": true,
+        "comment": "Persona - T1 incremental migration"
+      },
+      "migration_config": {
+        "t0_strategy": "presto_direct",
+        "t1_strategy": "presto_incremental",
+        "load_strategy": "upsert",
+        "batch_size": 10000,
+        "staging_table": "staging.persona",
+        "target_table": "core.persona",
+        "incremental_timestamp_check": true,
+        "last_loaded_query": "SELECT COALESCE(MAX(created), '1900-01-01'::timestamp) as last_loaded FROM core.persona"
+      },
+      "extraction_config": {
+        "t0_config": {
+          "source_type": "presto_sql",
+          "source_query": "SELECT * FROM map_cassandra.map_stage.persona WHERE org_id NOT IN ('470053', '12896222')",
+          "chunking_strategy": "org_based",
+          "chunk_size": 10000,
+          "org_filter_enabled": true,
+          "org_column": "org_id"
+        },
+        "t1_config": {
+          "source_type": "presto_sql",
+          "source_query": "SELECT * FROM map_cassandra.map_stage.persona WHERE org_id = '{org_id}' AND org_id NOT IN ('470053', '12896222') AND CAST(created AS timestamp) >= CAST('{last_loaded_timestamp}' AS timestamp)",
+          "incremental_column": "created",
+          "chunking_strategy": "org_based",
+          "chunk_size": 10000,
+          "requires_last_loaded_check": true
+        }
+      },
+      "validation_config": {
+        "row_count_validation": {
+          "enabled": true,
+          "tolerance_percentage": 0.5
+        },
+        "schema_validation": {
+          "enabled": true,
+          "auto_discover": true
+        },
+        "data_freshness_validation": {
+          "enabled": true,
+          "freshness_column": "created"
+        }
+      },
+      "dbt_variables": {
+        "cassandra_schema": "map_cassandra.map_stage",
+        "cassandra_table": "persona",
+        "final_layer_tgt_schema_name": "core",
+        "alloydb_schema": "core",
+        "alloydb_table": "persona",
+        "excluded_spids": [
+          "470053",
+          "12896222"
+        ],
+        "exclusion_field": "org_id",
+        "merge_key": "id",
+        "incremental_field": "created",
+        "type_of_extraction": "incremental",
+        "spid_resolution_required": false,
+        "spid_join_type": null,
+        "spid_lookup_table": null
+      },
+      "spid_resolution": {
+        "has_direct_org_field": true,
+        "direct_org_field": "org_id",
+        "requires_join_for_spid": false,
+        "merge_key_for_join": "id",
+        "join_strategy": null
+      },
+      "dbt_model_config": {
+        "model_name": "persona.sql",
+        "gcs_path": "gs://clx-dev-migration-zone-c395-composer3-migration-usc1-dags/dags/mdi_core_dbt/models/core/{table_name}.sql",
+        "local_sync_path": "dbt_models/core/persona.sql",
+        "depends_on_models": [
+          "mz.persona"
+        ],
+        "materializes_to": "core.persona",
+        "sync_required": true
+      }
+    },
+    "persona_bedtime_multiple": {
+      "cursor_column": null,
+      "source_system": "map",
+      "dbt_render_config_modules": [
+        "org_exclusion_clause"
+      ],
+      "downstream_dags": null,
+      "filters": {},
+      "final_layer_tgt_schema_name": "core",
+      "final_layer_tgt_table_name": "persona_bedtime_multiple",
+      "final_tables_schema": "core",
+      "incremental_sort_column": "created",
+      "key_check_column": "",
+      "merge_key": "id",
+      "org_inclusion_exclusion_field": "org_id",
+      "sorting_order": null,
+      "source_table_name": "persona_bedtime_multiple",
+      "table_name": "persona_bedtime_multiple",
+      "target_table_name": "persona_bedtime_multiple",
+      "is_this_incremental_table": true,
+      "is_this_one_time_migration_table": false,
+      "is_this_table_contain_org_id": true,
+      "depends_on": [],
+      "write_disposition": "append",
+      "table_metadata": {
+        "category": "user_config_small",
+        "estimated_size_mb": 50,
+        "supports_deletes": false,
+        "org_specific": true,
+        "auto_discover_schema": true,
+        "comment": "Persona Bedtime Multiple - T1 incremental migration"
+      },
+      "migration_config": {
+        "t0_strategy": "presto_direct",
+        "t1_strategy": "presto_incremental",
+        "load_strategy": "upsert",
+        "batch_size": 10000,
+        "staging_table": "staging.persona_bedtime_multiple",
+        "target_table": "core.persona_bedtime_multiple",
+        "incremental_timestamp_check": true,
+        "last_loaded_query": "SELECT COALESCE(MAX(created), '1900-01-01'::timestamp) as last_loaded FROM core.persona_bedtime_multiple"
+      },
+      "extraction_config": {
+        "t0_config": {
+          "source_type": "presto_sql",
+          "source_query": "SELECT * FROM map_cassandra.map_stage.persona_bedtime_multiple WHERE org_id NOT IN ('470053', '12896222')",
+          "chunking_strategy": "org_based",
+          "chunk_size": 10000,
+          "org_filter_enabled": true,
+          "org_column": "org_id"
+        },
+        "t1_config": {
+          "source_type": "presto_sql",
+          "source_query": "SELECT * FROM map_cassandra.map_stage.persona_bedtime_multiple WHERE org_id = '{org_id}' AND org_id NOT IN ('470053', '12896222') AND CAST(created AS timestamp) >= CAST('{last_loaded_timestamp}' AS timestamp)",
+          "incremental_column": "created",
+          "chunking_strategy": "org_based",
+          "chunk_size": 10000,
+          "requires_last_loaded_check": true
+        }
+      },
+      "validation_config": {
+        "row_count_validation": {
+          "enabled": true,
+          "tolerance_percentage": 0.5
+        },
+        "schema_validation": {
+          "enabled": true,
+          "auto_discover": true
+        },
+        "data_freshness_validation": {
+          "enabled": true,
+          "freshness_column": "created"
+        }
+      },
+      "dbt_variables": {
+        "cassandra_schema": "map_cassandra.map_stage",
+        "cassandra_table": "persona_bedtime_multiple",
+        "final_layer_tgt_schema_name": "core",
+        "alloydb_schema": "core",
+        "alloydb_table": "persona_bedtime_multiple",
+        "excluded_spids": [
+          "470053",
+          "12896222"
+        ],
+        "exclusion_field": "org_id",
+        "merge_key": "id",
+        "incremental_field": "created",
+        "type_of_extraction": "incremental",
+        "spid_resolution_required": false,
+        "spid_join_type": null,
+        "spid_lookup_table": null
+      },
+      "spid_resolution": {
+        "has_direct_org_field": true,
+        "direct_org_field": "org_id",
+        "requires_join_for_spid": false,
+        "merge_key_for_join": "id",
+        "join_strategy": null
+      },
+      "dbt_model_config": {
+        "model_name": "persona_bedtime_multiple.sql",
+        "gcs_path": "gs://clx-dev-migration-zone-c395-composer3-migration-usc1-dags/dags/mdi_core_dbt/models/core/{table_name}.sql",
+        "local_sync_path": "dbt_models/core/persona_bedtime_multiple.sql",
+        "depends_on_models": [
+          "mz.persona_bedtime_multiple"
+        ],
+        "materializes_to": "core.persona_bedtime_multiple",
+        "sync_required": true
+      }
+    },
+    "persona_stations": {
+      "cursor_column": null,
+      "source_system": "map",
+      "dbt_render_config_modules": [
+        "org_exclusion_clause"
+      ],
+      "downstream_dags": null,
+      "filters": {},
+      "final_layer_tgt_schema_name": "core",
+      "final_layer_tgt_table_name": "persona_stations",
+      "final_tables_schema": "core",
+      "incremental_sort_column": "created",
+      "key_check_column": "",
+      "merge_key": "id",
+      "org_inclusion_exclusion_field": "org_id",
+      "sorting_order": null,
+      "source_table_name": "persona_stations",
+      "table_name": "persona_stations",
+      "target_table_name": "persona_stations",
+      "is_this_incremental_table": true,
+      "is_this_one_time_migration_table": false,
+      "is_this_table_contain_org_id": true,
+      "depends_on": [],
+      "write_disposition": "append",
+      "table_metadata": {
+        "category": "user_config_small",
+        "estimated_size_mb": 50,
+        "supports_deletes": false,
+        "org_specific": true,
+        "auto_discover_schema": true,
+        "comment": "Persona Stations - T1 incremental migration"
+      },
+      "migration_config": {
+        "t0_strategy": "presto_direct",
+        "t1_strategy": "presto_incremental",
+        "load_strategy": "upsert",
+        "batch_size": 10000,
+        "staging_table": "staging.persona_stations",
+        "target_table": "core.persona_stations",
+        "incremental_timestamp_check": true,
+        "last_loaded_query": "SELECT COALESCE(MAX(created), '1900-01-01'::timestamp) as last_loaded FROM core.persona_stations"
+      },
+      "extraction_config": {
+        "t0_config": {
+          "source_type": "presto_sql",
+          "source_query": "SELECT * FROM map_cassandra.map_stage.persona_stations WHERE org_id NOT IN ('470053', '12896222')",
+          "chunking_strategy": "org_based",
+          "chunk_size": 10000,
+          "org_filter_enabled": true,
+          "org_column": "org_id"
+        },
+        "t1_config": {
+          "source_type": "presto_sql",
+          "source_query": "SELECT * FROM map_cassandra.map_stage.persona_stations WHERE org_id = '{org_id}' AND org_id NOT IN ('470053', '12896222') AND CAST(created AS timestamp) >= CAST('{last_loaded_timestamp}' AS timestamp)",
+          "incremental_column": "created",
+          "chunking_strategy": "org_based",
+          "chunk_size": 10000,
+          "requires_last_loaded_check": true
+        }
+      },
+      "validation_config": {
+        "row_count_validation": {
+          "enabled": true,
+          "tolerance_percentage": 0.5
+        },
+        "schema_validation": {
+          "enabled": true,
+          "auto_discover": true
+        },
+        "data_freshness_validation": {
+          "enabled": true,
+          "freshness_column": "created"
+        }
+      },
+      "dbt_variables": {
+        "cassandra_schema": "map_cassandra.map_stage",
+        "cassandra_table": "persona_stations",
+        "final_layer_tgt_schema_name": "core",
+        "alloydb_schema": "core",
+        "alloydb_table": "persona_stations",
+        "excluded_spids": [
+          "470053",
+          "12896222"
+        ],
+        "exclusion_field": "org_id",
+        "merge_key": "id",
+        "incremental_field": "created",
+        "type_of_extraction": "incremental",
+        "spid_resolution_required": false,
+        "spid_join_type": null,
+        "spid_lookup_table": null
+      },
+      "spid_resolution": {
+        "has_direct_org_field": true,
+        "direct_org_field": "org_id",
+        "requires_join_for_spid": false,
+        "merge_key_for_join": "id",
+        "join_strategy": null
+      },
+      "dbt_model_config": {
+        "model_name": "persona_stations.sql",
+        "gcs_path": "gs://clx-dev-migration-zone-c395-composer3-migration-usc1-dags/dags/mdi_core_dbt/models/core/{table_name}.sql",
+        "local_sync_path": "dbt_models/core/persona_stations.sql",
+        "depends_on_models": [
+          "mz.persona_stations"
+        ],
+        "materializes_to": "core.persona_stations",
+        "sync_required": true
+      }
+    },
+    "mdi_router": {
+      "cursor_column": null,
+      "source_system": "map",
+      "dbt_render_config_modules": [
+        "org_exclusion_clause"
+      ],
+      "downstream_dags": null,
+      "filters": {},
+      "final_layer_tgt_schema_name": "core",
+      "final_layer_tgt_table_name": "mdi_router",
+      "final_tables_schema": "core",
+      "incremental_sort_column": "created",
+      "key_check_column": "",
+      "merge_key": "id",
+      "org_inclusion_exclusion_field": "org_id",
+      "sorting_order": null,
+      "source_table_name": "mdi_router",
+      "table_name": "mdi_router",
+      "target_table_name": "mdi_router",
+      "is_this_incremental_table": true,
+      "is_this_one_time_migration_table": false,
+      "is_this_table_contain_org_id": true,
+      "depends_on": [],
+      "write_disposition": "append",
+      "table_metadata": {
+        "category": "user_config_small",
+        "estimated_size_mb": 50,
+        "supports_deletes": false,
+        "org_specific": true,
+        "auto_discover_schema": true,
+        "comment": "Mdi Router - T1 incremental migration"
+      },
+      "migration_config": {
+        "t0_strategy": "presto_direct",
+        "t1_strategy": "presto_incremental",
+        "load_strategy": "upsert",
+        "batch_size": 10000,
+        "staging_table": "staging.mdi_router",
+        "target_table": "core.mdi_router",
+        "incremental_timestamp_check": true,
+        "last_loaded_query": "SELECT COALESCE(MAX(created), '1900-01-01'::timestamp) as last_loaded FROM core.mdi_router"
+      },
+      "extraction_config": {
+        "t0_config": {
+          "source_type": "presto_sql",
+          "source_query": "SELECT * FROM map_cassandra.map_stage.mdi_router WHERE org_id NOT IN ('470053', '12896222')",
+          "chunking_strategy": "org_based",
+          "chunk_size": 10000,
+          "org_filter_enabled": true,
+          "org_column": "org_id"
+        },
+        "t1_config": {
+          "source_type": "presto_sql",
+          "source_query": "SELECT * FROM map_cassandra.map_stage.mdi_router WHERE org_id = '{org_id}' AND org_id NOT IN ('470053', '12896222') AND CAST(created AS timestamp) >= CAST('{last_loaded_timestamp}' AS timestamp)",
+          "incremental_column": "created",
+          "chunking_strategy": "org_based",
+          "chunk_size": 10000,
+          "requires_last_loaded_check": true
+        }
+      },
+      "validation_config": {
+        "row_count_validation": {
+          "enabled": true,
+          "tolerance_percentage": 0.5
+        },
+        "schema_validation": {
+          "enabled": true,
+          "auto_discover": true
+        },
+        "data_freshness_validation": {
+          "enabled": true,
+          "freshness_column": "created"
+        }
+      },
+      "dbt_variables": {
+        "cassandra_schema": "map_cassandra.map_stage",
+        "cassandra_table": "mdi_router",
+        "final_layer_tgt_schema_name": "core",
+        "alloydb_schema": "core",
+        "alloydb_table": "mdi_router",
+        "excluded_spids": [
+          "470053",
+          "12896222"
+        ],
+        "exclusion_field": "org_id",
+        "merge_key": "id",
+        "incremental_field": "created",
+        "type_of_extraction": "incremental",
+        "spid_resolution_required": false,
+        "spid_join_type": null,
+        "spid_lookup_table": null
+      },
+      "spid_resolution": {
+        "has_direct_org_field": true,
+        "direct_org_field": "org_id",
+        "requires_join_for_spid": false,
+        "merge_key_for_join": "id",
+        "join_strategy": null
+      },
+      "dbt_model_config": {
+        "model_name": "mdi_router.sql",
+        "gcs_path": "gs://clx-dev-migration-zone-c395-composer3-migration-usc1-dags/dags/mdi_core_dbt/models/core/{table_name}.sql",
+        "local_sync_path": "dbt_models/core/mdi_router.sql",
+        "depends_on_models": [
+          "mz.mdi_router"
+        ],
+        "materializes_to": "core.mdi_router",
+        "sync_required": true
+      }
+    },
+    "cafii_latency_test_resp": {
+      "cursor_column": null,
+      "source_system": "map",
+      "dbt_render_config_modules": [
+        "org_exclusion_clause"
+      ],
+      "downstream_dags": null,
+      "filters": {},
+      "final_layer_tgt_schema_name": "core",
+      "final_layer_tgt_table_name": "cafii_latency_test_resp",
+      "final_tables_schema": "core",
+      "incremental_sort_column": "created",
+      "key_check_column": "",
+      "merge_key": "correlation_id",
+      "org_inclusion_exclusion_field": "org_id",
+      "sorting_order": null,
+      "source_table_name": "cafii_latency_test_resp",
+      "table_name": "cafii_latency_test_resp",
+      "target_table_name": "cafii_latency_test_resp",
+      "is_this_incremental_table": true,
+      "is_this_one_time_migration_table": false,
+      "is_this_table_contain_org_id": true,
+      "depends_on": [],
+      "write_disposition": "append",
+      "table_metadata": {
+        "category": "user_config_small",
+        "estimated_size_mb": 50,
+        "supports_deletes": false,
+        "org_specific": true,
+        "auto_discover_schema": true,
+        "comment": "Cafii Latency Test Resp - T1 incremental migration"
+      },
+      "migration_config": {
+        "t0_strategy": "presto_direct",
+        "t1_strategy": "presto_incremental",
+        "load_strategy": "upsert",
+        "batch_size": 10000,
+        "staging_table": "staging.cafii_latency_test_resp",
+        "target_table": "core.cafii_latency_test_resp",
+        "incremental_timestamp_check": true,
+        "last_loaded_query": "SELECT COALESCE(MAX(created), '1900-01-01'::timestamp) as last_loaded FROM core.cafii_latency_test_resp"
+      },
+      "extraction_config": {
+        "t0_config": {
+          "source_type": "presto_sql",
+          "source_query": "SELECT * FROM map_cassandra.map_stage.cafii_latency_test_resp WHERE org_id NOT IN ('470053', '12896222')",
+          "chunking_strategy": "org_based",
+          "chunk_size": 10000,
+          "org_filter_enabled": true,
+          "org_column": "org_id"
+        },
+        "t1_config": {
+          "source_type": "presto_sql",
+          "source_query": "SELECT * FROM map_cassandra.map_stage.cafii_latency_test_resp WHERE org_id = '{org_id}' AND org_id NOT IN ('470053', '12896222') AND CAST(created AS timestamp) >= CAST('{last_loaded_timestamp}' AS timestamp)",
+          "incremental_column": "created",
+          "chunking_strategy": "org_based",
+          "chunk_size": 10000,
+          "requires_last_loaded_check": true
+        }
+      },
+      "validation_config": {
+        "row_count_validation": {
+          "enabled": true,
+          "tolerance_percentage": 0.5
+        },
+        "schema_validation": {
+          "enabled": true,
+          "auto_discover": true
+        },
+        "data_freshness_validation": {
+          "enabled": true,
+          "freshness_column": "created"
+        }
+      },
+      "dbt_variables": {
+        "cassandra_schema": "map_cassandra.map_stage",
+        "cassandra_table": "cafii_latency_test_resp",
+        "final_layer_tgt_schema_name": "core",
+        "alloydb_schema": "core",
+        "alloydb_table": "cafii_latency_test_resp",
+        "excluded_spids": [
+          "470053",
+          "12896222"
+        ],
+        "exclusion_field": "org_id",
+        "merge_key": "correlation_id",
+        "incremental_field": "created",
+        "type_of_extraction": "incremental",
+        "spid_resolution_required": false,
+        "spid_join_type": null,
+        "spid_lookup_table": null
+      },
+      "spid_resolution": {
+        "has_direct_org_field": true,
+        "direct_org_field": "org_id",
+        "requires_join_for_spid": false,
+        "merge_key_for_join": "correlation_id",
+        "join_strategy": null
+      },
+      "dbt_model_config": {
+        "model_name": "cafii_latency_test_resp.sql",
+        "gcs_path": "gs://clx-dev-migration-zone-c395-composer3-migration-usc1-dags/dags/mdi_core_dbt/models/core/{table_name}.sql",
+        "local_sync_path": "dbt_models/core/cafii_latency_test_resp.sql",
+        "depends_on_models": [
+          "mz.cafii_latency_test_resp"
+        ],
+        "materializes_to": "core.cafii_latency_test_resp",
+        "sync_required": true
+      }
+    },
+    "cafii_speed_test_req": {
+      "cursor_column": null,
+      "source_system": "map",
+      "dbt_render_config_modules": [
+        "org_exclusion_clause"
+      ],
+      "downstream_dags": null,
+      "filters": {},
+      "final_layer_tgt_schema_name": "core",
+      "final_layer_tgt_table_name": "cafii_speed_test_req",
+      "final_tables_schema": "core",
+      "incremental_sort_column": "created",
+      "key_check_column": "",
+      "merge_key": "correlation_id",
+      "org_inclusion_exclusion_field": "org_id",
+      "sorting_order": null,
+      "source_table_name": "cafii_speed_test_req",
+      "table_name": "cafii_speed_test_req",
+      "target_table_name": "cafii_speed_test_req",
+      "is_this_incremental_table": true,
+      "is_this_one_time_migration_table": false,
+      "is_this_table_contain_org_id": true,
+      "depends_on": [],
+      "write_disposition": "append",
+      "table_metadata": {
+        "category": "user_config_small",
+        "estimated_size_mb": 50,
+        "supports_deletes": false,
+        "org_specific": true,
+        "auto_discover_schema": true,
+        "comment": "Cafii Speed Test Req - T1 incremental migration"
+      },
+      "migration_config": {
+        "t0_strategy": "presto_direct",
+        "t1_strategy": "presto_incremental",
+        "load_strategy": "upsert",
+        "batch_size": 10000,
+        "staging_table": "staging.cafii_speed_test_req",
+        "target_table": "core.cafii_speed_test_req",
+        "incremental_timestamp_check": true,
+        "last_loaded_query": "SELECT COALESCE(MAX(created), '1900-01-01'::timestamp) as last_loaded FROM core.cafii_speed_test_req"
+      },
+      "extraction_config": {
+        "t0_config": {
+          "source_type": "presto_sql",
+          "source_query": "SELECT * FROM map_cassandra.map_stage.cafii_speed_test_req WHERE org_id NOT IN ('470053', '12896222')",
+          "chunking_strategy": "org_based",
+          "chunk_size": 10000,
+          "org_filter_enabled": true,
+          "org_column": "org_id"
+        },
+        "t1_config": {
+          "source_type": "presto_sql",
+          "source_query": "SELECT * FROM map_cassandra.map_stage.cafii_speed_test_req WHERE org_id = '{org_id}' AND org_id NOT IN ('470053', '12896222') AND CAST(created AS timestamp) >= CAST('{last_loaded_timestamp}' AS timestamp)",
+          "incremental_column": "created",
+          "chunking_strategy": "org_based",
+          "chunk_size": 10000,
+          "requires_last_loaded_check": true
+        }
+      },
+      "validation_config": {
+        "row_count_validation": {
+          "enabled": true,
+          "tolerance_percentage": 0.5
+        },
+        "schema_validation": {
+          "enabled": true,
+          "auto_discover": true
+        },
+        "data_freshness_validation": {
+          "enabled": true,
+          "freshness_column": "created"
+        }
+      },
+      "dbt_variables": {
+        "cassandra_schema": "map_cassandra.map_stage",
+        "cassandra_table": "cafii_speed_test_req",
+        "final_layer_tgt_schema_name": "core",
+        "alloydb_schema": "core",
+        "alloydb_table": "cafii_speed_test_req",
+        "excluded_spids": [
+          "470053",
+          "12896222"
+        ],
+        "exclusion_field": "org_id",
+        "merge_key": "correlation_id",
+        "incremental_field": "created",
+        "type_of_extraction": "incremental",
+        "spid_resolution_required": false,
+        "spid_join_type": null,
+        "spid_lookup_table": null
+      },
+      "spid_resolution": {
+        "has_direct_org_field": true,
+        "direct_org_field": "org_id",
+        "requires_join_for_spid": false,
+        "merge_key_for_join": "correlation_id",
+        "join_strategy": null
+      },
+      "dbt_model_config": {
+        "model_name": "cafii_speed_test_req.sql",
+        "gcs_path": "gs://clx-dev-migration-zone-c395-composer3-migration-usc1-dags/dags/mdi_core_dbt/models/core/{table_name}.sql",
+        "local_sync_path": "dbt_models/core/cafii_speed_test_req.sql",
+        "depends_on_models": [
+          "mz.cafii_speed_test_req"
+        ],
+        "materializes_to": "core.cafii_speed_test_req",
+        "sync_required": true
+      }
+    },
+    "cafii_speed_test_resp": {
+      "cursor_column": null,
+      "source_system": "map",
+      "dbt_render_config_modules": [
+        "org_exclusion_clause"
+      ],
+      "downstream_dags": null,
+      "filters": {},
+      "final_layer_tgt_schema_name": "core",
+      "final_layer_tgt_table_name": "cafii_speed_test_resp",
+      "final_tables_schema": "core",
+      "incremental_sort_column": "created",
+      "key_check_column": "",
+      "merge_key": "correlation_id",
+      "org_inclusion_exclusion_field": "org_id",
+      "sorting_order": null,
+      "source_table_name": "cafii_speed_test_resp",
+      "table_name": "cafii_speed_test_resp",
+      "target_table_name": "cafii_speed_test_resp",
+      "is_this_incremental_table": true,
+      "is_this_one_time_migration_table": false,
+      "is_this_table_contain_org_id": true,
+      "depends_on": [],
+      "write_disposition": "append",
+      "table_metadata": {
+        "category": "user_config_small",
+        "estimated_size_mb": 50,
+        "supports_deletes": false,
+        "org_specific": true,
+        "auto_discover_schema": true,
+        "comment": "Cafii Speed Test Resp - T1 incremental migration"
+      },
+      "migration_config": {
+        "t0_strategy": "presto_direct",
+        "t1_strategy": "presto_incremental",
+        "load_strategy": "upsert",
+        "batch_size": 10000,
+        "staging_table": "staging.cafii_speed_test_resp",
+        "target_table": "core.cafii_speed_test_resp",
+        "incremental_timestamp_check": true,
+        "last_loaded_query": "SELECT COALESCE(MAX(created), '1900-01-01'::timestamp) as last_loaded FROM core.cafii_speed_test_resp"
+      },
+      "extraction_config": {
+        "t0_config": {
+          "source_type": "presto_sql",
+          "source_query": "SELECT * FROM map_cassandra.map_stage.cafii_speed_test_resp WHERE org_id NOT IN ('470053', '12896222')",
+          "chunking_strategy": "org_based",
+          "chunk_size": 10000,
+          "org_filter_enabled": true,
+          "org_column": "org_id"
+        },
+        "t1_config": {
+          "source_type": "presto_sql",
+          "source_query": "SELECT * FROM map_cassandra.map_stage.cafii_speed_test_resp WHERE org_id = '{org_id}' AND org_id NOT IN ('470053', '12896222') AND CAST(created AS timestamp) >= CAST('{last_loaded_timestamp}' AS timestamp)",
+          "incremental_column": "created",
+          "chunking_strategy": "org_based",
+          "chunk_size": 10000,
+          "requires_last_loaded_check": true
+        }
+      },
+      "validation_config": {
+        "row_count_validation": {
+          "enabled": true,
+          "tolerance_percentage": 0.5
+        },
+        "schema_validation": {
+          "enabled": true,
+          "auto_discover": true
+        },
+        "data_freshness_validation": {
+          "enabled": true,
+          "freshness_column": "created"
+        }
+      },
+      "dbt_variables": {
+        "cassandra_schema": "map_cassandra.map_stage",
+        "cassandra_table": "cafii_speed_test_resp",
+        "final_layer_tgt_schema_name": "core",
+        "alloydb_schema": "core",
+        "alloydb_table": "cafii_speed_test_resp",
+        "excluded_spids": [
+          "470053",
+          "12896222"
+        ],
+        "exclusion_field": "org_id",
+        "merge_key": "correlation_id",
+        "incremental_field": "created",
+        "type_of_extraction": "incremental",
+        "spid_resolution_required": false,
+        "spid_join_type": null,
+        "spid_lookup_table": null
+      },
+      "spid_resolution": {
+        "has_direct_org_field": true,
+        "direct_org_field": "org_id",
+        "requires_join_for_spid": false,
+        "merge_key_for_join": "correlation_id",
+        "join_strategy": null
+      },
+      "dbt_model_config": {
+        "model_name": "cafii_speed_test_resp.sql",
+        "gcs_path": "gs://clx-dev-migration-zone-c395-composer3-migration-usc1-dags/dags/mdi_core_dbt/models/core/{table_name}.sql",
+        "local_sync_path": "dbt_models/core/cafii_speed_test_resp.sql",
+        "depends_on_models": [
+          "mz.cafii_speed_test_resp"
+        ],
+        "materializes_to": "core.cafii_speed_test_resp",
+        "sync_required": true
+      }
+    },
+    "cloud_speed_test": {
+      "cursor_column": null,
+      "source_system": "map",
+      "dbt_render_config_modules": [
+        "org_exclusion_clause"
+      ],
+      "downstream_dags": null,
+      "filters": {},
+      "final_layer_tgt_schema_name": "core",
+      "final_layer_tgt_table_name": "cloud_speed_test",
+      "final_tables_schema": "core",
+      "incremental_sort_column": "created",
+      "key_check_column": "",
+      "merge_key": "correlation_id",
+      "org_inclusion_exclusion_field": "org_id",
+      "sorting_order": null,
+      "source_table_name": "cloud_speed_test",
+      "table_name": "cloud_speed_test",
+      "target_table_name": "cloud_speed_test",
+      "is_this_incremental_table": true,
+      "is_this_one_time_migration_table": false,
+      "is_this_table_contain_org_id": true,
+      "depends_on": [],
+      "write_disposition": "append",
+      "table_metadata": {
+        "category": "user_config_small",
+        "estimated_size_mb": 50,
+        "supports_deletes": false,
+        "org_specific": true,
+        "auto_discover_schema": true,
+        "comment": "Cloud Speed Test - T1 incremental migration"
+      },
+      "migration_config": {
+        "t0_strategy": "presto_direct",
+        "t1_strategy": "presto_incremental",
+        "load_strategy": "upsert",
+        "batch_size": 10000,
+        "staging_table": "staging.cloud_speed_test",
+        "target_table": "core.cloud_speed_test",
+        "incremental_timestamp_check": true,
+        "last_loaded_query": "SELECT COALESCE(MAX(created), '1900-01-01'::timestamp) as last_loaded FROM core.cloud_speed_test"
+      },
+      "extraction_config": {
+        "t0_config": {
+          "source_type": "presto_sql",
+          "source_query": "SELECT * FROM map_cassandra.map_stage.cloud_speed_test WHERE org_id NOT IN ('470053', '12896222')",
+          "chunking_strategy": "org_based",
+          "chunk_size": 10000,
+          "org_filter_enabled": true,
+          "org_column": "org_id"
+        },
+        "t1_config": {
+          "source_type": "presto_sql",
+          "source_query": "SELECT * FROM map_cassandra.map_stage.cloud_speed_test WHERE org_id = '{org_id}' AND org_id NOT IN ('470053', '12896222') AND CAST(created AS timestamp) >= CAST('{last_loaded_timestamp}' AS timestamp)",
+          "incremental_column": "created",
+          "chunking_strategy": "org_based",
+          "chunk_size": 10000,
+          "requires_last_loaded_check": true
+        }
+      },
+      "validation_config": {
+        "row_count_validation": {
+          "enabled": true,
+          "tolerance_percentage": 0.5
+        },
+        "schema_validation": {
+          "enabled": true,
+          "auto_discover": true
+        },
+        "data_freshness_validation": {
+          "enabled": true,
+          "freshness_column": "created"
+        }
+      },
+      "dbt_variables": {
+        "cassandra_schema": "map_cassandra.map_stage",
+        "cassandra_table": "cloud_speed_test",
+        "final_layer_tgt_schema_name": "core",
+        "alloydb_schema": "core",
+        "alloydb_table": "cloud_speed_test",
+        "excluded_spids": [
+          "470053",
+          "12896222"
+        ],
+        "exclusion_field": "org_id",
+        "merge_key": "correlation_id",
+        "incremental_field": "created",
+        "type_of_extraction": "incremental",
+        "spid_resolution_required": false,
+        "spid_join_type": null,
+        "spid_lookup_table": null
+      },
+      "spid_resolution": {
+        "has_direct_org_field": true,
+        "direct_org_field": "org_id",
+        "requires_join_for_spid": false,
+        "merge_key_for_join": "correlation_id",
+        "join_strategy": null
+      },
+      "dbt_model_config": {
+        "model_name": "cloud_speed_test.sql",
+        "gcs_path": "gs://clx-dev-migration-zone-c395-composer3-migration-usc1-dags/dags/mdi_core_dbt/models/core/{table_name}.sql",
+        "local_sync_path": "dbt_models/core/cloud_speed_test.sql",
+        "depends_on_models": [
+          "mz.cloud_speed_test"
+        ],
+        "materializes_to": "core.cloud_speed_test",
+        "sync_required": true
+      }
+    },
+    "wifi_pool_primary_networks": {
+      "cursor_column": null,
+      "source_system": "map",
+      "dbt_render_config_modules": [
+        "org_exclusion_clause"
+      ],
+      "downstream_dags": null,
+      "filters": {},
+      "final_layer_tgt_schema_name": "core",
+      "final_layer_tgt_table_name": "wifi_pool_primary_networks",
+      "final_tables_schema": "core",
+      "incremental_sort_column": "created",
+      "key_check_column": "",
+      "merge_key": "id",
+      "org_inclusion_exclusion_field": "org_id",
+      "sorting_order": null,
+      "source_table_name": "wifi_pool_primary_networks",
+      "table_name": "wifi_pool_primary_networks",
+      "target_table_name": "wifi_pool_primary_networks",
+      "is_this_incremental_table": true,
+      "is_this_one_time_migration_table": false,
+      "is_this_table_contain_org_id": true,
+      "depends_on": [],
+      "write_disposition": "append",
+      "table_metadata": {
+        "category": "user_config_small",
+        "estimated_size_mb": 50,
+        "supports_deletes": false,
+        "org_specific": true,
+        "auto_discover_schema": true,
+        "comment": "Wifi Pool Primary Networks - T1 incremental migration"
+      },
+      "migration_config": {
+        "t0_strategy": "presto_direct",
+        "t1_strategy": "presto_incremental",
+        "load_strategy": "upsert",
+        "batch_size": 10000,
+        "staging_table": "staging.wifi_pool_primary_networks",
+        "target_table": "core.wifi_pool_primary_networks",
+        "incremental_timestamp_check": true,
+        "last_loaded_query": "SELECT COALESCE(MAX(created), '1900-01-01'::timestamp) as last_loaded FROM core.wifi_pool_primary_networks"
+      },
+      "extraction_config": {
+        "t0_config": {
+          "source_type": "presto_sql",
+          "source_query": "SELECT * FROM map_cassandra.map_stage.wifi_pool_primary_networks WHERE org_id NOT IN ('470053', '12896222')",
+          "chunking_strategy": "org_based",
+          "chunk_size": 10000,
+          "org_filter_enabled": true,
+          "org_column": "org_id"
+        },
+        "t1_config": {
+          "source_type": "presto_sql",
+          "source_query": "SELECT * FROM map_cassandra.map_stage.wifi_pool_primary_networks WHERE org_id = '{org_id}' AND org_id NOT IN ('470053', '12896222') AND CAST(created AS timestamp) >= CAST('{last_loaded_timestamp}' AS timestamp)",
+          "incremental_column": "created",
+          "chunking_strategy": "org_based",
+          "chunk_size": 10000,
+          "requires_last_loaded_check": true
+        }
+      },
+      "validation_config": {
+        "row_count_validation": {
+          "enabled": true,
+          "tolerance_percentage": 0.5
+        },
+        "schema_validation": {
+          "enabled": true,
+          "auto_discover": true
+        },
+        "data_freshness_validation": {
+          "enabled": true,
+          "freshness_column": "created"
+        }
+      },
+      "dbt_variables": {
+        "cassandra_schema": "map_cassandra.map_stage",
+        "cassandra_table": "wifi_pool_primary_networks",
+        "final_layer_tgt_schema_name": "core",
+        "alloydb_schema": "core",
+        "alloydb_table": "wifi_pool_primary_networks",
+        "excluded_spids": [
+          "470053",
+          "12896222"
+        ],
+        "exclusion_field": "org_id",
+        "merge_key": "id",
+        "incremental_field": "created",
+        "type_of_extraction": "incremental",
+        "spid_resolution_required": false,
+        "spid_join_type": null,
+        "spid_lookup_table": null
+      },
+      "spid_resolution": {
+        "has_direct_org_field": true,
+        "direct_org_field": "org_id",
+        "requires_join_for_spid": false,
+        "merge_key_for_join": "id",
+        "join_strategy": null
+      },
+      "dbt_model_config": {
+        "model_name": "wifi_pool_primary_networks.sql",
+        "gcs_path": "gs://clx-dev-migration-zone-c395-composer3-migration-usc1-dags/dags/mdi_core_dbt/models/core/{table_name}.sql",
+        "local_sync_path": "dbt_models/core/wifi_pool_primary_networks.sql",
+        "depends_on_models": [
+          "mz.wifi_pool_primary_networks"
+        ],
+        "materializes_to": "core.wifi_pool_primary_networks",
+        "sync_required": true
+      }
+    },
+    "cafii_latency_test_req": {
+      "cursor_column": null,
+      "source_system": "map",
+      "dbt_render_config_modules": [
+        "org_exclusion_clause"
+      ],
+      "downstream_dags": null,
+      "filters": {},
+      "final_layer_tgt_schema_name": "core",
+      "final_layer_tgt_table_name": "cafii_latency_test_req",
+      "final_tables_schema": "core",
+      "incremental_sort_column": "created",
+      "key_check_column": "",
+      "merge_key": "correlation_id",
+      "org_inclusion_exclusion_field": "org_id",
+      "sorting_order": null,
+      "source_table_name": "cafii_latency_test_req",
+      "table_name": "cafii_latency_test_req",
+      "target_table_name": "cafii_latency_test_req",
+      "is_this_incremental_table": true,
+      "is_this_one_time_migration_table": false,
+      "is_this_table_contain_org_id": true,
+      "depends_on": [],
+      "write_disposition": "append",
+      "table_metadata": {
+        "category": "user_config_small",
+        "estimated_size_mb": 50,
+        "supports_deletes": false,
+        "org_specific": true,
+        "auto_discover_schema": true,
+        "comment": "Cafii Latency Test Req - T1 incremental migration"
+      },
+      "migration_config": {
+        "t0_strategy": "presto_direct",
+        "t1_strategy": "presto_incremental",
+        "load_strategy": "upsert",
+        "batch_size": 10000,
+        "staging_table": "staging.cafii_latency_test_req",
+        "target_table": "core.cafii_latency_test_req",
+        "incremental_timestamp_check": true,
+        "last_loaded_query": "SELECT COALESCE(MAX(created), '1900-01-01'::timestamp) as last_loaded FROM core.cafii_latency_test_req"
+      },
+      "extraction_config": {
+        "t0_config": {
+          "source_type": "presto_sql",
+          "source_query": "SELECT * FROM map_cassandra.map_stage.cafii_latency_test_req WHERE org_id NOT IN ('470053', '12896222')",
+          "chunking_strategy": "org_based",
+          "chunk_size": 10000,
+          "org_filter_enabled": true,
+          "org_column": "org_id"
+        },
+        "t1_config": {
+          "source_type": "presto_sql",
+          "source_query": "SELECT * FROM map_cassandra.map_stage.cafii_latency_test_req WHERE org_id = '{org_id}' AND org_id NOT IN ('470053', '12896222') AND CAST(created AS timestamp) >= CAST('{last_loaded_timestamp}' AS timestamp)",
+          "incremental_column": "created",
+          "chunking_strategy": "org_based",
+          "chunk_size": 10000,
+          "requires_last_loaded_check": true
+        }
+      },
+      "validation_config": {
+        "row_count_validation": {
+          "enabled": true,
+          "tolerance_percentage": 0.5
+        },
+        "schema_validation": {
+          "enabled": true,
+          "auto_discover": true
+        },
+        "data_freshness_validation": {
+          "enabled": true,
+          "freshness_column": "created"
+        }
+      },
+      "dbt_variables": {
+        "cassandra_schema": "map_cassandra.map_stage",
+        "cassandra_table": "cafii_latency_test_req",
+        "final_layer_tgt_schema_name": "core",
+        "alloydb_schema": "core",
+        "alloydb_table": "cafii_latency_test_req",
+        "excluded_spids": [
+          "470053",
+          "12896222"
+        ],
+        "exclusion_field": "org_id",
+        "merge_key": "correlation_id",
+        "incremental_field": "created",
+        "type_of_extraction": "incremental",
+        "spid_resolution_required": false,
+        "spid_join_type": null,
+        "spid_lookup_table": null
+      },
+      "spid_resolution": {
+        "has_direct_org_field": true,
+        "direct_org_field": "org_id",
+        "requires_join_for_spid": false,
+        "merge_key_for_join": "correlation_id",
+        "join_strategy": null
+      },
+      "dbt_model_config": {
+        "model_name": "cafii_latency_test_req.sql",
+        "gcs_path": "gs://clx-dev-migration-zone-c395-composer3-migration-usc1-dags/dags/mdi_core_dbt/models/core/{table_name}.sql",
+        "local_sync_path": "dbt_models/core/cafii_latency_test_req.sql",
+        "depends_on_models": [
+          "mz.cafii_latency_test_req"
+        ],
+        "materializes_to": "core.cafii_latency_test_req",
+        "sync_required": true
+      }
+    }
+  }
+}
